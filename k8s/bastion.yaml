@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bastion
+spec:
+  containers:
+    - name: debian-with-networkutils
+      image: amouat/network-utils
+      command: ['bash']
+      tty: true
+      stdin: true
+      imagePullPolicy: Never

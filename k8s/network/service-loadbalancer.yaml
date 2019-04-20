@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-explorer-loadbalancer-pod
+  labels:
+    app: k8s-explorer
+spec:
+  containers:
+    - name: k8s-explorer-container
+      image: k8s-explorer
+      ports:
+        - containerPort: 7000
+      imagePullPolicy: Never
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: k8s-explorer-loadbalancer-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: k8s-explorer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7000

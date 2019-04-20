@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-explorer-sidecar-pod
+spec:
+  containers:
+    - name: k8s-explorer-container
+      image: k8s-explorer
+      ports:
+        - containerPort: 7000
+      imagePullPolicy: Never
+    - name: config-updater-sidecar-container
+      image: byrnedo/alpine-curl
+      command: ['sh', '-c', 'while true; do for st in $(seq 1 5); do curl -X PUT -d "sleeptimeInSecondsBeforeGreet=$st" http://localhost:7000/config; sleep $st; done; done']

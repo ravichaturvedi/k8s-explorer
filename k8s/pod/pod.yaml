@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-explorer-pod
+spec:
+  containers:
+    - name: k8s-explorer-container
+      image: k8s-explorer
+      ports:
+        - containerPort: 7000
+      imagePullPolicy: Never

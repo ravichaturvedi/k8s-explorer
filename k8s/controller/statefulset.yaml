@@ -1,0 +1,50 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: k8s-explorer-svc
+spec:
+  clusterIP: None
+  selector:
+    app: k8s-explorer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7000
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: k8s-explorer
+
+spec:
+  serviceName: "k8s-explorer-svc"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: k8s-explorer
+
+  template:
+    metadata:
+      labels:
+        app: k8s-explorer
+    spec:
+      containers:
+        - name: k8s-explorer-container
+          image: k8s-explorer
+          ports:
+            - containerPort: 7000
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: data
+              mountPath: /data
+
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

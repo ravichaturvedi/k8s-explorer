@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-explorer-probe-pod
+spec:
+  containers:
+    - name: k8s-explorer-container
+      image: k8s-explorer
+      ports:
+        - containerPort: 7000
+      imagePullPolicy: Never
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 7000
+        initialDelaySeconds: 2
+        periodSeconds: 2
+      readinessProbe:
+        httpGet:
+          path: /message
+          port: 7000
+        initialDelaySeconds: 2
+        periodSeconds: 2

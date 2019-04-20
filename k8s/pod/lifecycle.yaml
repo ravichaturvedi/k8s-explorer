@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-explorer-lifecycle-pod
+spec:
+  containers:
+    - name: k8s-explorer-container
+      image: k8s-explorer
+      ports:
+        - containerPort: 7000
+      imagePullPolicy: Never
+      lifecycle:
+        postStart:
+          exec:
+            command: ["/bin/sh", "-c", "mkdir -p /usr/share/k8s-explorer && echo 'Hello from the postStart handler to k8s Explorers!' > /usr/share/k8s-explorer/message"]
+        preStop:
+          exec:
+            command: ["/bin/sh","-c","echo 'Do something interesting!'"]
+
+

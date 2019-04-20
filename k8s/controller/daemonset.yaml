@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: k8s-explorer
+spec:
+  selector:
+    matchLabels:
+      app: k8s-explorer-ds
+
+  template:
+    metadata:
+      labels:
+        app: k8s-explorer-ds
+
+    spec:
+      containers:
+        - name: k8s-explorer-container
+          image: k8s-explorer
+          ports:
+            - containerPort: 7000
+          imagePullPolicy: Never

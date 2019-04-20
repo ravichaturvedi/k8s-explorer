@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi-completion-job
+spec:
+  completions: 2
+  parallelism: 1
+  activeDeadlineSeconds: 120
+  backoffLimit: 4
+
+  template:
+    spec:
+      containers:
+        - name: pi
+          image: perl
+          command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(200)"]
+      restartPolicy: Never

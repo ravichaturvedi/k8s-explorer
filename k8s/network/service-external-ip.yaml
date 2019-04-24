@@ -1,6 +1,3 @@
-# Not working on docker for mac, perhaps should work on a real cluster.
-
-
 kind: Service
 apiVersion: v1
 metadata:
@@ -15,7 +12,7 @@ spec:
 kind: Endpoints
 apiVersion: v1
 metadata:
-  name: google-ip-svc-ep
+  name: google-ip-svc
 subsets:
   - addresses:
       # www.google.com IP

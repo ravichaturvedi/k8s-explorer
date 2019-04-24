@@ -30,4 +30,4 @@ spec:
   volumes:
     - name: data-volume
       persistentVolumeClaim:
-        claimName: myclaim
+        claimName: k8s-explorer-pvc
